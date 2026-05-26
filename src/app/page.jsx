@@ -1,12 +1,13 @@
-import Banner from '@/components/Banner';
-import Seekers from '@/components/Seekers';
-
+import Banner from "@/components/Banner";
+import FeatureJobs from "@/components/FeatureJobs";
+import Seekers from "@/components/Seekers";
 
 const HomePage = () => {
   return (
     <div>
-      <Banner/>
-    <Seekers/>
+      <Banner />
+      <Seekers />
+      <FeatureJobs/>
     </div>
   );
 };
