@@ -3,6 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from '@/assets/image/logo.png'
+import Image from "next/image";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -15,18 +17,19 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-transparent text-white px-4 md:px-12 py-4 flex items-center justify-between sticky top-0 z-50">
-      <div className="flex items-center gap-2 flex-shrink-0">
-        <div className="w-9 h-9 bg-gradient-to-tr from-purple-600 to-pink-500 rounded-xl flex items-center justify-center font-bold text-lg text-white">
-          P
-        </div>
-        <span className="font-bold text-xl tracking-tight hidden sm:block">
-          Programming
-          <br className="leading-none" />
-          <span className="text-gray-300 text-lg">Hero</span>
-        </span>
-        <span className="font-bold text-xl tracking-tight sm:hidden">PH</span>
+      
+      <div className="flex items-center flex-shrink-0">
+        <Image
+          src={Logo}
+          alt="Hire Loop Logo"
+          height={40} 
+          width={160} 
+          className="object-contain"
+          priority 
+        />
       </div>
 
+   
       <div className="hidden md:flex items-center ml-auto gap-6">
         <div className="flex items-center bg-[#1c1d20]/80 px-6 py-2.5 rounded-xl border border-gray-800/50 gap-8 text-sm font-medium">
           {navLinks.map((link, index) => {
