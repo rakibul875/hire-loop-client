@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import FeatureJobs from "@/components/FeatureJobs";
+import PaySection from "@/components/PaySection";
 import Seekers from "@/components/Seekers";
 
 const HomePage = () => {
@@ -8,6 +9,7 @@ const HomePage = () => {
       <Banner />
       <Seekers />
       <FeatureJobs/>
+      <PaySection/>
     </div>
   );
 };
