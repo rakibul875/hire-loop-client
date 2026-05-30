@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import Link from 'next/link';
 
 const RightSide = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -106,9 +107,8 @@ const RightSide = () => {
                     </button>
                 </form>
 
-             
                 <p className="text-xs text-gray-500 text-center mt-8 font-light">
-                    Don`t have an account? <a href="#" className="text-gray-300 hover:text-white font-semibold transition-colors">Join Hireloop</a>
+                    Don`t have an account? <Link href="/singup" className="text-gray-300 hover:text-white font-semibold transition-colors">Create Account</Link>
                 </p>
 
             </div>
