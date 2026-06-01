@@ -1,29 +1,87 @@
+"use client"
 import React from "react";
 import { FiSearch, FiMapPin, FiBriefcase } from "react-icons/fi";
 import { IoSearchOutline } from "react-icons/io5";
+import { motion } from "framer-motion"; 
 
 const Banner = () => {
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }, // Smooth easing
+    },
+  };
+
   return (
     <section className="w-full bg-[#000000] text-white pt-24 pb-20 px-4 md:px-12 flex flex-col items-center justify-center relative overflow-hidden min-h-[650px]">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05)_0%,rgba(0,0,0,0)_70%)] pointer-events-none z-0"></div>
+      
+      
+      <motion.div 
+        initial={{ opacity: 0.3, scale: 0.9 }}
+        animate={{ 
+          opacity: [0.3, 0.5, 0.3],
+          scale: [0.9, 1.05, 0.9] 
+        }}
+        transition={{ 
+          duration: 8, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06)_0%,rgba(0,0,0,0)_70%)] pointer-events-none z-0"
+      />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 bg-[#141517] border border-gray-800/60 px-4 py-1.5 rounded-full text-xs font-medium tracking-wide text-gray-400 mb-8 shadow-md">
+
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto"
+      >
+      
+        <motion.div 
+          variants={itemVariants}
+          className="inline-flex items-center gap-2 bg-[#141517] border border-gray-800/60 px-4 py-1.5 rounded-full text-xs font-medium tracking-wide text-gray-400 mb-8 shadow-md"
+        >
           <FiBriefcase className="text-amber-600 w-3.5 h-3.5" />
-          <span className="text-white font-semibold">50,000+</span> NEW JOBS
-          THIS MONTH
-        </div>
+          <span className="text-white font-semibold">50,000+</span> NEW JOBS THIS MONTH
+        </motion.div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.15]">
+
+        <motion.h1 
+          variants={itemVariants}
+          className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.15]"
+        >
           Find Your Dream Job Today
-        </h1>
+        </motion.h1>
 
-        <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl font-light leading-relaxed mb-12 px-2">
+        <motion.p 
+          variants={itemVariants}
+          className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl font-light leading-relaxed mb-12 px-2"
+        >
           HireLoop connects top talent with world-class companies. Browse
           thousands of curated opportunities and land your next role — faster.
-        </p>
+        </motion.p>
 
-        <div className="w-full max-w-3xl bg-[#0d0e10]/90 border border-gray-800/80 rounded-2xl md:rounded-full p-2 flex flex-col md:flex-row items-center gap-3 md:gap-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md mb-8">
+
+        <motion.div 
+          variants={itemVariants}
+          className="w-full max-w-3xl bg-[#0d0e10]/90 border border-gray-800/80 rounded-2xl md:rounded-full p-2 flex flex-col md:flex-row items-center gap-3 md:gap-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md mb-8"
+        >
           <div className="w-full flex items-center px-4 py-2 gap-3 md:border-r md:border-gray-800/80">
             <FiSearch className="text-gray-500 w-5 h-5 flex-shrink-0" />
             <input
@@ -42,26 +100,37 @@ const Banner = () => {
             />
           </div>
 
-          <button className="w-full md:w-auto bg-[#4f46e5] hover:bg-[#4338ca] text-white p-3.5 rounded-xl md:rounded-full flex items-center justify-center md:px-6 transition-all active:scale-95 flex-shrink-0 shadow-lg shadow-indigo-600/20">
-            <IoSearchOutline className="w-5 h-5" />
-          </button>
-        </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm">
+          <motion.button 
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full md:w-auto bg-[#4f46e5] hover:bg-[#4338ca] text-white p-3.5 rounded-xl md:rounded-full flex items-center justify-center md:px-6 transition-colors flex-shrink-0 shadow-lg shadow-indigo-600/20"
+          >
+            <IoSearchOutline className="w-5 h-5" />
+          </motion.button>
+        </motion.div>
+
+        <motion.div 
+          variants={itemVariants}
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm"
+        >
           <span className="text-gray-500 font-medium mr-1">
             Trending Position
           </span>
-          <span className="bg-[#111214] border border-gray-800/60 px-4 py-1.5 rounded-full text-gray-400 hover:text-white hover:border-gray-700 cursor-pointer transition-colors">
-            Product Designer
-          </span>
-          <span className="bg-[#111214] border border-gray-800/60 px-4 py-1.5 rounded-full text-gray-400 hover:text-white hover:border-gray-700 cursor-pointer transition-colors">
-            AI Engineering
-          </span>
-          <span className="bg-[#111214] border border-gray-800/60 px-4 py-1.5 rounded-full text-gray-400 hover:text-white hover:border-gray-700 cursor-pointer transition-colors">
-            Dev-ops Engineer
-          </span>
-        </div>
-      </div>
+          
+          {["Product Designer", "AI Engineering", "Dev-ops Engineer"].map((tag, i) => (
+            <motion.span 
+              key={i}
+              whileHover={{ scale: 1.05, y: -2, backgroundColor: "#16171a", borderColor: "#4b5563" }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#111214] border border-gray-800/60 px-4 py-1.5 rounded-full text-gray-400 hover:text-white cursor-pointer transition-colors"
+            >
+              {tag}
+            </motion.span>
+          ))}
+        </motion.div>
+
+      </motion.div>
     </section>
   );
 };
