@@ -4,14 +4,25 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Link from 'next/link';
+import { authClient } from '@/lib/auth-client';
+import { redirect } from 'next/navigation';
 
 const RightSide = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const handelSignin=(e)=>{
+    const handelSignin= async(e)=>{
         e.preventDefault()
         const user=new FormData(e.currentTarget)
         const userData= Object.fromEntries(user.entries())
-        console.log(userData)
+        const {data,error}= await authClient.signIn.email({
+            email: userData.email,
+            password: userData.password
+        })
+        if(data){
+            alert('sign In successful')
+            redirect('/')
+        }else{
+            alert(error.message)
+        }
     }
 
     return (
