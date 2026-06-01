@@ -1,8 +1,12 @@
+
+
+"use client";
 import React from "react";
 import { FiSearch, FiBookmark } from "react-icons/fi";
 import { BiTrendingUp } from "react-icons/bi";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { TbClick, TbFileText, TbHexagon, TbTrendingUp } from "react-icons/tb";
+import { motion } from "framer-motion";
 
 const FeatureJobs = () => {
   const features = [
@@ -48,27 +52,86 @@ const FeatureJobs = () => {
     },
   ];
 
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, 
+      },
+    },
+  };
+
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
-    <section className="w-full bg-[#0a0a0a] text-white py-24 px-4 sm:px-8 md:px-16 flex flex-col items-center">
-      <div className="flex items-center gap-2 mb-4">
+    <section className="w-full bg-[#0a0a0a] text-white py-24 px-4 sm:px-8 md:px-16 flex flex-col items-center select-none">
+      
+    
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center gap-2 mb-4"
+      >
         <span className="w-1.5 h-1.5 bg-indigo-600 rounded-[2px]"></span>
         <span className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-gray-400 uppercase">
           FEATURES JOB
         </span>
         <span className="w-1.5 h-1.5 bg-indigo-600 rounded-[2px]"></span>
-      </div>
+      </motion.div>
 
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-center tracking-tight text-white mb-20 max-w-xl leading-tight">
+   
+      <motion.h2 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        className="text-3xl sm:text-4xl md:text-5xl font-normal text-center tracking-tight text-white mb-20 max-w-xl leading-tight"
+      >
         Everything you need <br /> to succeed
-      </h2>
+      </motion.h2>
 
-      <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }} 
+        className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"
+      >
         {features.map((feature, index) => (
-          <div key={index} className="flex items-start gap-4 group">
-            <div className="w-12 h-12 bg-[#111111] border border-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] group-hover:border-gray-800 transition-all duration-300">
-              {feature.icon}
-            </div>
+          <motion.div 
+            key={index} 
+            variants={itemVariants}
+            className="flex items-start gap-4 group cursor-pointer"
+          >
+            
+            <motion.div 
+              whileHover={{ 
+                scale: 1.05,
+                borderColor: "rgba(168, 85, 247, 0.4)", 
+                boxShadow: "0 0 15px rgba(168, 85, 247, 0.15)"
+              }}
+              className="w-12 h-12 bg-[#111111] border border-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] transition-all duration-300"
+            >
+            
+              <motion.div className="group-hover:scale-110 transition-transform duration-300">
+                {feature.icon}
+              </motion.div>
+            </motion.div>
 
+       
             <div className="flex flex-col gap-1">
               <h3 className="text-base font-medium text-gray-200 group-hover:text-white transition-colors">
                 {feature.title}
@@ -77,9 +140,9 @@ const FeatureJobs = () => {
                 {feature.desc}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
