@@ -22,7 +22,7 @@ export function LoginAvater({user}) {
                 alt="Jane"
                 src={user?.image}
               />
-              <Avatar.Fallback delayMs={600}>JD</Avatar.Fallback>
+              <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
             </Avatar>
             <div className="flex flex-col gap-0">
               <p className="text-sm leading-5 font-medium">{user?.name}</p>
