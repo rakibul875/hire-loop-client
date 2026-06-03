@@ -124,9 +124,20 @@ const Navbar = () => {
 
           <div className="h-[1px] bg-gray-800 my-1"></div>
           <li>
-            <Link href="/signin" className="text-indigo-400">
+            {user ? (
+            <div className="flex items-center gap-2">
+              <LoginAvater user={user}/>
+              <Button onClick={handelLogOut}>LogOut</Button>
+            </div>
+            
+          ) : (
+            <Link
+              href="/signin"
+              className="text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors"
+            >
               Sign In
             </Link>
+          )}
           </li>
           <li className="mt-1">
             <button className="bg-white text-black font-semibold py-2 rounded-xl text-center hover:bg-gray-200 w-full">

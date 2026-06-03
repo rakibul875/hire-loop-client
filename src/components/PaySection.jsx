@@ -50,7 +50,7 @@ const PaySection = () => {
     },
   ];
 
-  // কার্ডগুলোর জন্য অ্যানিমেশন ভ্যারিয়েন্ট
+ 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -71,10 +71,10 @@ const PaySection = () => {
   return (
     <section className="w-full bg-[#000000] text-white py-24 px-4 sm:px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden relative select-none">
       
-      {/* ব্যাকগ্রাউন্ড রেডিয়াল গ্লো ইফেক্ট */}
+      
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-[radial-gradient(circle_at_top,rgba(79,70,229,0.08)_0%,rgba(0,0,0,0)_70%)] pointer-events-none z-0" />
 
-      {/* টপ ব্যাজ */}
+     
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -88,7 +88,7 @@ const PaySection = () => {
         <span className="w-1.5 h-1.5 bg-indigo-600 rounded-[2px]"></span>
       </motion.div>
 
-      {/* হেডিং */}
+      
       <motion.h2 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +99,6 @@ const PaySection = () => {
         Pay for the leverage, <br /> not the listings
       </motion.h2>
 
-      {/* ডাইনামিক টগল বাটন (স্মুথ স্লাইডারসহ) */}
       <motion.div 
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -107,7 +106,7 @@ const PaySection = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="bg-[#141517] p-1 rounded-full flex items-center mb-16 border border-gray-900 shadow-md relative z-20"
       >
-        {/* Monthly Button */}
+    
         <button
           onClick={() => setBillingCycle("monthly")}
           className={`px-6 py-2 rounded-full text-xs sm:text-sm font-medium relative transition-colors duration-300 ${
@@ -124,7 +123,7 @@ const PaySection = () => {
           )}
         </button>
 
-        {/* Yearly Button */}
+       
         <button
           onClick={() => setBillingCycle("yearly")}
           className={`px-5 py-2 rounded-full text-xs sm:text-sm font-medium relative transition-colors duration-300 flex items-center gap-2 ${
@@ -149,13 +148,13 @@ const PaySection = () => {
         </button>
       </motion.div>
 
-      {/* কার্ড গ্রিড */}
+    
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20"
+        className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-20"
       >
         {plans.map((plan, index) => (
           <motion.div
@@ -189,7 +188,7 @@ const PaySection = () => {
                   </span>
                 </div>
                 
-                {/* প্রাইস অ্যামাউন্ট চেঞ্জ হওয়ার স্মুথ অ্যানিমেশন */}
+              
                 <div className="flex items-baseline">
                   <AnimatePresence mode="wait">
                     <motion.span
