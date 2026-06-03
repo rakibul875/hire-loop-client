@@ -8,30 +8,34 @@ import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 
 const SingUP = () => {
+  const [role, setRole] = useState("seeker");
+  const [showPassword, setShowPassword] = useState(false);
+
   const handelSignUp = async (e) => {
     e.preventDefault();
     const userData = new FormData(e.currentTarget);
+    userData.set("role", role);
+
     const user = Object.fromEntries(userData.entries());
-    
-const { data, error } = await authClient.signUp.email({
-        name:user.name,
-        email:user.email,
-        image:user.image,
-        password:user.password,
-    })
-    if(data){
-        alert('sineUp successful')
-        redirect('/')
-    }
-    else{
-        error.message
+    const { data, error } = await authClient.signUp.email({
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      password: user.password,
+      role: user.role,
+    });
+
+    if (data) {
+      alert("signUp successful");
+      redirect("/");
+    } else {
+      console.error(error?.message);
     }
   };
-  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="w-full lg:w-1/2 bg-[#090a0c] flex flex-col items-center justify-center p-6 sm:p-12 md:p-20 min-h-screen">
       <div className="w-full max-w-[420px] flex flex-col">
-
         <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight mb-2">
           Create your account
         </h2>
@@ -40,11 +44,17 @@ const { data, error } = await authClient.signUp.email({
         </p>
 
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <button className="flex items-center justify-center gap-2 bg-[#111215]/50 border border-gray-900 rounded-xl py-2.5 px-4 text-xs font-medium text-gray-300 hover:bg-[#16171c] hover:border-gray-800 transition-all">
+          <button
+            type="button"
+            className="flex items-center justify-center gap-2 bg-[#111215]/50 border border-gray-900 rounded-xl py-2.5 px-4 text-xs font-medium text-gray-300 hover:bg-[#16171c] hover:border-gray-800 transition-all"
+          >
             <FaLinkedin className="text-[#0a66c2] w-4 h-4" />
             <span>LinkedIn</span>
           </button>
-          <button className="flex items-center justify-center gap-2 bg-[#111215]/50 border border-gray-900 rounded-xl py-2.5 px-4 text-xs font-medium text-gray-300 hover:bg-[#16171c] hover:border-gray-800 transition-all">
+          <button
+            type="button"
+            className="flex items-center justify-center gap-2 bg-[#111215]/50 border border-gray-900 rounded-xl py-2.5 px-4 text-xs font-medium text-gray-300 hover:bg-[#16171c] hover:border-gray-800 transition-all"
+          >
             <FcGoogle className="w-4 h-4" />
             <span>Google</span>
           </button>
@@ -58,11 +68,7 @@ const { data, error } = await authClient.signUp.email({
           <div className="flex-1 border-t border-gray-900"></div>
         </div>
 
-        <form
-          onSubmit={handelSignUp}
-          className="space-y-5 mt-4"
-
-        >
+        <form onSubmit={handelSignUp} className="space-y-5 mt-4">
           <div className="flex flex-col gap-2">
             <label className="text-xs font-medium text-gray-400">
               Full Name
@@ -87,7 +93,6 @@ const { data, error } = await authClient.signUp.email({
             />
           </div>
 
-
           <div className="flex flex-col gap-2">
             <label className="text-xs font-medium text-gray-400">
               Photo URL
@@ -99,13 +104,11 @@ const { data, error } = await authClient.signUp.email({
                 placeholder="https://example.com/your-photo.jpg"
                 className="w-full bg-[#111215]/40 border border-gray-900 focus:border-gray-800/80 rounded-xl py-3 pl-4 pr-12 text-sm text-white placeholder-gray-750 outline-none transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.4)] focus:bg-[#111215]/80"
               />
-
               <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none">
                 <FiImage className="w-4 h-4" />
               </div>
             </div>
           </div>
-
 
           <div className="flex flex-col gap-2">
             <label className="text-xs font-medium text-gray-400">
@@ -129,6 +132,40 @@ const { data, error } = await authClient.signUp.email({
                   <FiEye className="w-4 h-4" />
                 )}
               </button>
+            </div>
+          </div>
+
+        
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-gray-400">
+              Subscription plan
+            </label>
+
+            <div className="flex items-center gap-6 mt-1">
+             
+              <label className="flex items-center gap-2 cursor-pointer select-none text-sm text-gray-300">
+                <input
+                  type="radio"
+                  name="seeker"
+                  value="seeker"
+                  checked={role === "seeker"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="w-4 h-4 rounded-full border-gray-700 bg-[#111215] text-white focus:ring-0 focus:ring-offset-0 accent-blue-500 cursor-pointer"
+                />
+                <span>Seeker</span>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer select-none text-sm text-gray-300">
+                <input
+                  type="radio"
+                  name="recruiter"
+                  value="recruiter"
+                  checked={role === "recruiter"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="w-4 h-4 rounded-full border-gray-700 bg-[#111215] text-white focus:ring-0 focus:ring-offset-0 accent-blue-500 cursor-pointer"
+                />
+                <span>Recruiter</span>
+              </label>
             </div>
           </div>
 
@@ -159,7 +196,6 @@ const { data, error } = await authClient.signUp.email({
               .
             </label>
           </div>
-
 
           <button
             type="submit"
