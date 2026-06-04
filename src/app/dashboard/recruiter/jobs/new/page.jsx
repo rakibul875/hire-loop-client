@@ -1,5 +1,6 @@
 "use client";
 
+import { createJobs } from "@/lib/action/jobs";
 import {
   Form,
   TextField,
@@ -14,13 +15,17 @@ import {
 } from "@heroui/react";
 
 export default function NewJobPage() {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const jobData = Object.fromEntries(formData);
 
     console.log(jobData);
+    const res= await createJobs(jobData);
+    if(res.insertedId){
+      alert('Job Add successful')
+    }
   };
 
   return (
@@ -71,7 +76,7 @@ export default function NewJobPage() {
                   <FieldError />
                 </TextField>
 
-                <Select name="category">
+                <Select name="category" isRequired>
                   <Label>Job Category</Label>
 
                   <Select.Trigger className="bg-zinc-900 border border-zinc-800 rounded-lg">
@@ -91,7 +96,7 @@ export default function NewJobPage() {
                     </ListBox>
                   </Select.Popover>
                 </Select>
-                <Select name="jobType">
+                <Select name="jobType" isRequired>
                   <Label>Job Type</Label>
 
                   <Select.Trigger className="bg-zinc-900 border border-zinc-800 rounded-lg">
@@ -114,7 +119,7 @@ export default function NewJobPage() {
               </div>
 
               <div className="mt-5 grid gap-5 md:grid-cols-2">
-                <TextField name="salary">
+                <TextField name="salary" isRequired>
                   <Label>Salary</Label>
 
                   <Input
@@ -125,7 +130,7 @@ export default function NewJobPage() {
                     }}
                   />
                 </TextField>
-                <Select name="currency">
+                <Select name="currency" isRequired>
                   <Label>Currency</Label>
 
                   <Select.Trigger className="bg-zinc-900 border border-zinc-800 rounded-lg">
@@ -145,7 +150,7 @@ export default function NewJobPage() {
               </div>
 
               <div className="mt-5 grid gap-5 md:grid-cols-2">
-                <TextField name="location">
+                <TextField name="location" isRequired>
                   <Label>Location</Label>
 
                   <Input
@@ -156,7 +161,7 @@ export default function NewJobPage() {
                     }}
                   />
                 </TextField>
-                <TextField name="country">
+                <TextField name="country" isRequired>
                   <Label>Country</Label>
 
                   <Input
