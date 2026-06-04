@@ -34,7 +34,7 @@ export default function NewJobPage() {
     const formData = new FormData(e.currentTarget);
     const jobData = Object.fromEntries(formData);
 
-    console.log(jobData);
+    
 
       const payload = {
             ...jobData,
@@ -43,7 +43,7 @@ export default function NewJobPage() {
             status: "active",
             isPubliclyVisible: true,
         };
-        console.log("payload",payload)
+        
 
 
     const res = await createJobs(payload);
