@@ -13,6 +13,7 @@ import {
     TextArea
 } from '@heroui/react';
 import { ArrowUpToLine, Globe, Factory, ArrowRight, Pencil, ChevronDown } from '@gravity-ui/icons';
+import { createCompany } from '@/lib/action/company';
 
 // ড্রপডাউন পপওভার এবং লিস্ট আইটেমের জন্য স্টাইল
 const popoverClasses = "bg-zinc-950 border border-zinc-800 rounded-lg p-1 shadow-xl min-w-[200px]";
@@ -39,7 +40,7 @@ export default function CompanyProfile() {
     };
 
     // ৩. ফর্ম সাবমিট হ্যান্ডলার
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         
@@ -52,7 +53,7 @@ export default function CompanyProfile() {
 
         const formattedWebsite = websiteUrl?.startsWith('http') ? websiteUrl : `https://${websiteUrl}`;
 
-        setCompany({
+        const newCompany={
             _id: "fake-id-123",
             name: companyName,
             websiteUrl: formattedWebsite,
@@ -62,11 +63,16 @@ export default function CompanyProfile() {
             description,
             logo: logoUrl,
             status: company ? company.status : 'Pending'
-        });
-
+        }
+        setCompany(newCompany);
+        const payload= await createCompany(newCompany)
+        if(payload.insertedId){
+            alert('New Company Post Successful')
+        }
         setIsEditing(false);
     };
-    console.log(company)
+    
+   
 
     // --- ভিউ ১: কোনো কোম্পানি রেজিস্টার্ড না থাকলে (Empty State) ---
     if (!company && !isEditing) {
