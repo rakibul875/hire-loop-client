@@ -8,7 +8,7 @@ const CompanyPage = async () => {
     const company= await getRecruiterCompany(session?.id)
     return (
         <div>
-            <CompanyProfile recruiter={session} newCompany={company}/>
+            <CompanyProfile recruiter={session} recruiterCompany={company}/>
         </div>
     );
 };

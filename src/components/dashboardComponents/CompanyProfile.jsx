@@ -19,11 +19,11 @@ import { createCompany } from '@/lib/action/company';
 const popoverClasses = "bg-zinc-950 border border-zinc-800 rounded-lg p-1 shadow-xl min-w-[200px]";
 const listItemClasses = "text-zinc-300 px-3 py-2 rounded-md cursor-pointer hover:bg-zinc-900 hover:text-white outline-none data-[focused=true]:bg-zinc-900";
 
-export default function CompanyProfile({recruiter, newCompany}) {
+export default function CompanyProfile({recruiter, recruiterCompany}) {
     const recruiterId=recruiter.id;
    
     // ১. ফ্রন্টএন্ড স্টেট ম্যানেজমেন্ট
-    const [company, setCompany] = useState(newCompany); 
+    const [company, setCompany] = useState(recruiterCompany); 
     const [isEditing, setIsEditing] = useState(false);
     const [logoUrl, setLogoUrl] = useState('');
 
