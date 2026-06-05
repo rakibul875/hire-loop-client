@@ -19,7 +19,9 @@ import { createCompany } from '@/lib/action/company';
 const popoverClasses = "bg-zinc-950 border border-zinc-800 rounded-lg p-1 shadow-xl min-w-[200px]";
 const listItemClasses = "text-zinc-300 px-3 py-2 rounded-md cursor-pointer hover:bg-zinc-900 hover:text-white outline-none data-[focused=true]:bg-zinc-900";
 
-export default function CompanyProfile() {
+export default function CompanyProfile({recruiter}) {
+    const recruiterId=recruiter.id;
+   
     // ১. ফ্রন্টএন্ড স্টেট ম্যানেজমেন্ট
     const [company, setCompany] = useState(null); 
     const [isEditing, setIsEditing] = useState(false);
@@ -62,7 +64,8 @@ export default function CompanyProfile() {
             employeeCount: employeeCount || '1-10',
             description,
             logo: logoUrl,
-            status: company ? company.status : 'Pending'
+            status: company ? company.status : 'Pending',
+            recruiterId: recruiterId,
         }
         setCompany(newCompany);
         const payload= await createCompany(newCompany)
