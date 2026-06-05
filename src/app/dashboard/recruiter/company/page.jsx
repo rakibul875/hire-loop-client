@@ -6,9 +6,11 @@ import React from 'react';
 const CompanyPage = async () => {
     const session= await getUserSession();
     const company= await getRecruiterCompany(session?.id)
+    console.log(company)
     return (
+       
         <div>
-            <CompanyProfile recruiter={session} recruiterCompany={company}/>
+            <CompanyProfile recruiter={session} newCompany={company}/>
         </div>
     );
 };
