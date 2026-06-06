@@ -10,20 +10,23 @@ import {
   Label,
   FieldError,
   Button,
-  Switch,
   Select,
   ListBox,
   DateField,
 } from "@heroui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function JobFrom() {
+export default function JobFrom({recruiterCompany}) {
+    // console.log(recruiterCompany)
+  const router = useRouter();
+  
   const [mockCompany] = useState({
     name: "Acme Corp (Auto-filled)",
     id: "company_123",
     isApproved: true,
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!mockCompany.isApproved) {
@@ -34,22 +37,17 @@ export default function JobFrom() {
     const formData = new FormData(e.currentTarget);
     const jobData = Object.fromEntries(formData);
 
-    
-
-      const payload = {
-            ...jobData,
-            // isRemote,
-            companyId: mockCompany.id,
-            status: "active",
-            isPubliclyVisible: true,
-        };
-        
-
+    const payload = {
+      ...jobData,
+      companyId: mockCompany.id,
+      status: "active",
+      isPubliclyVisible: true,
+    };
 
     const res = await createJobs(payload);
     if (res.insertedId) {
       alert("Job Add successful");
-      redirect('/dashboard/recruiter')
+      router.push('/dashboard/recruiter');
     }
   };
 
@@ -58,7 +56,7 @@ export default function JobFrom() {
       <div className="mx-auto max-w-3xl space-y-5">
         <div className="overflow-hidden rounded-2xl">
           <div className="border-b border-zinc-800 pb-6 mb-8">
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="text-2xl font-semibold tracking-tight text-white">
               Post a New Job
             </h1>
             <p className="text-zinc-400 text-sm mt-1">
@@ -90,66 +88,52 @@ export default function JobFrom() {
 
               <div className="mt-6 grid gap-5 grid-cols-1 md:grid-cols-2">
                 <TextField name="companyName" isRequired>
-                  <Label>Company Name</Label>
-
+                  <Label className="text-zinc-300">Company Name</Label>
                   <Input
                     placeholder="Name Of Company"
-                    classNames={{
-                      inputWrapper: "bg-zinc-900 border border-zinc-800",
-                    }}
+                    variant="bordered"
+                    className="bg-zinc-900 border border-zinc-800 rounded-xl"
                   />
-
                   <FieldError />
                 </TextField>
-                <TextField name="title" isRequired>
-                  <Label>Job Title</Label>
 
+                <TextField name="title" isRequired>
+                  <Label className="text-zinc-300">Job Title</Label>
                   <Input
                     placeholder="Senior Frontend Developer"
-                    classNames={{
-                      inputWrapper: "bg-zinc-900 border border-zinc-800",
-                    }}
+                    variant="bordered"
+                    className="bg-zinc-900 border border-zinc-800 rounded-xl"
                   />
-
                   <FieldError />
                 </TextField>
 
                 <Select name="category" isRequired>
-                  <Label>Job Category</Label>
-
+                  <Label className="text-zinc-300">Job Category</Label>
                   <Select.Trigger className="bg-zinc-900 border border-zinc-800 rounded-lg">
                     <Select.Value placeholder="Select category" />
                     <Select.Indicator />
                   </Select.Trigger>
-
                   <Select.Popover>
                     <ListBox>
                       <ListBox.Item id="development">Development</ListBox.Item>
-
                       <ListBox.Item id="design">Design</ListBox.Item>
-
                       <ListBox.Item id="marketing">Marketing</ListBox.Item>
-
                       <ListBox.Item id="product">Product</ListBox.Item>
                     </ListBox>
                   </Select.Popover>
                 </Select>
-                <Select name="jobType" isRequired>
-                  <Label>Job Type</Label>
 
+                <Select name="jobType" isRequired>
+                  <Label className="text-zinc-300">Job Type</Label>
                   <Select.Trigger className="bg-zinc-900 border border-zinc-800 rounded-lg">
                     <Select.Value placeholder="Select job type" />
                     <Select.Indicator />
                   </Select.Trigger>
-
                   <Select.Popover>
                     <ListBox>
                       <ListBox.Item id="full-time">Full Time</ListBox.Item>
-
                       <ListBox.Item id="part-time">Part Time</ListBox.Item>
-
                       <ListBox.Item id="contract">Contract</ListBox.Item>
-
                       <ListBox.Item id="internship">Internship</ListBox.Item>
                     </ListBox>
                   </Select.Popover>
@@ -158,24 +142,21 @@ export default function JobFrom() {
 
               <div className="mt-5 grid gap-5 md:grid-cols-2">
                 <TextField name="salary" isRequired>
-                  <Label>Salary</Label>
-
+                  <Label className="text-zinc-300">Salary</Label>
                   <Input
                     placeholder="5000"
                     type="number"
-                    classNames={{
-                      inputWrapper: "bg-zinc-900 border border-zinc-800",
-                    }}
+                    variant="bordered"
+                    className="bg-zinc-900 border border-zinc-800 rounded-xl"
                   />
                 </TextField>
-                <Select name="currency" isRequired>
-                  <Label>Currency</Label>
 
+                <Select name="currency" isRequired>
+                  <Label className="text-zinc-300">Currency</Label>
                   <Select.Trigger className="bg-zinc-900 border border-zinc-800 rounded-lg">
                     <Select.Value placeholder="Currency" />
                     <Select.Indicator />
                   </Select.Trigger>
-
                   <Select.Popover>
                     <ListBox>
                       <ListBox.Item id="usd">USD</ListBox.Item>
@@ -189,18 +170,17 @@ export default function JobFrom() {
 
               <div className="mt-5 grid gap-5 md:grid-cols-2">
                 <TextField name="location" isRequired>
-                  <Label>Location</Label>
-
+                  <Label className="text-zinc-300">Location</Label>
                   <Input
-                    placeholder="Cty, Country"
+                    placeholder="City, Country"
                     type="text"
-                    classNames={{
-                      inputWrapper: "bg-zinc-900 border border-zinc-800",
-                    }}
+                    variant="bordered"
+                    className="bg-zinc-900 border border-zinc-800 rounded-xl"
                   />
                 </TextField>
+
                 <DateField className="w-[256px]" name="date">
-                  <Label>Date</Label>
+                  <Label className="text-zinc-300">Date</Label>
                   <DateField.Group>
                     <DateField.Input>
                       {(segment) => <DateField.Segment segment={segment} />}
@@ -211,56 +191,49 @@ export default function JobFrom() {
                   </DateField.Group>
                 </DateField>
               </div>
-              <div className="mt-2">
+
+              <div className="mt-6">
                 <h2 className="text-lg font-medium text-white">
                   Job Description
                 </h2>
 
                 <div className="mt-6 space-y-5">
                   <TextField name="responsibilities">
-                    <Label>Responsibilities</Label>
-
+                    <Label className="text-zinc-300">Responsibilities</Label>
                     <TextArea
                       rows={6}
                       placeholder="Describe responsibilities..."
-                      classNames={{
-                        inputWrapper: "bg-zinc-900 border border-zinc-800",
-                      }}
+                      variant="bordered"
+                      className="bg-zinc-900 border border-zinc-800 rounded-xl"
                     />
-
                     <FieldError />
                   </TextField>
 
                   <TextField name="requirements">
-                    <Label>Requirements</Label>
-
+                    <Label className="text-zinc-300">Requirements</Label>
                     <TextArea
                       rows={6}
                       placeholder="Required skills and experience..."
-                      classNames={{
-                        inputWrapper: "bg-zinc-900 border border-zinc-800",
-                      }}
+                      variant="bordered"
+                      className="bg-zinc-900 border border-zinc-800 rounded-xl"
                     />
-
                     <FieldError />
                   </TextField>
 
                   <TextField name="benefits">
-                    <Label>Benefits</Label>
-
+                    <Label className="text-zinc-300">Benefits</Label>
                     <TextArea
                       rows={4}
                       placeholder="Health insurance, bonuses, remote allowance..."
-                      classNames={{
-                        inputWrapper: "bg-zinc-900 border border-zinc-800",
-                      }}
+                      variant="bordered"
+                      className="bg-zinc-900 border border-zinc-800 rounded-xl"
                     />
                   </TextField>
                 </div>
               </div>
+
               <div className="flex justify-end mt-3 gap-3 py-6 px-3">
                 <Button variant="bordered">Cancel</Button>
-
                 <Button color="primary" type="submit">
                   Publish Job
                 </Button>
