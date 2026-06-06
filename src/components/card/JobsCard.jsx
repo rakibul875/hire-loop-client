@@ -51,7 +51,7 @@ const JobsCard = ({ job }) => {
         </div>
 
         <Link
-          href={`/browseJobs/:${job._id}`}
+          href={`/browseJobs/${job._id}`}
           className="mt-auto w-full bg-white border border-gray-300 text-gray-700 font-medium py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
         >
           Apply Now →

@@ -12,3 +12,7 @@ export const getLoggedInRecruiterCompany = async () => {
 export const getJobsData = async () => {
    return await handelGetSection('/jobs')
 };
+
+export const getJobsById=async(id)=>{
+ return await handelGetSection(`/jobs/${id}`)
+}
