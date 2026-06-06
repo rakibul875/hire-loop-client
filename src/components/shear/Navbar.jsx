@@ -17,7 +17,7 @@ const Navbar = () => {
     await authClient.signOut();
   }
   const navLinks = [
-    { title: "Browse Jobs", path: "/jobs" },
+    { title: "Browse Jobs", path: "/browseJobs" },
     { title: "Company", path: "/company" },
     { title: "Pricing", path: "/pricing" },
   ];
