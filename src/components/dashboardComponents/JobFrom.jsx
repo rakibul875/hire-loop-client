@@ -18,36 +18,38 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function JobFrom({recruiterCompany}) {
-    // console.log(recruiterCompany)
   const router = useRouter();
   
-  const [mockCompany] = useState({
-    name: "Acme Corp (Auto-filled)",
-    id: "company_123",
-    isApproved: true,
-  });
+//   const [mockCompany] = useState({
+//     name: "Acme Corp (Auto-filled)",
+//     id: "company_123",
+//     isApproved: true,
+//   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!mockCompany.isApproved) {
-      alert("Your company profile must be approved before you can post jobs.");
-      return;
-    }
+    // if (!mockCompany.isApproved) {
+    //   alert("Your company profile must be approved before you can post jobs.");
+    //   return;
+    // }
 
     const formData = new FormData(e.currentTarget);
     const jobData = Object.fromEntries(formData);
 
     const payload = {
       ...jobData,
-      companyId: mockCompany.id,
+      companyId: recruiterCompany._id,
+      companyName: recruiterCompany.name,
+      companyLogo:recruiterCompany.logo,
       status: "active",
       isPubliclyVisible: true,
+      
     };
 
     const res = await createJobs(payload);
     if (res.insertedId) {
       alert("Job Add successful");
-      router.push('/dashboard/recruiter');
+      router.push('/dashboard/recruiter/jobs');
     }
   };
 
@@ -68,7 +70,7 @@ export default function JobFrom({recruiterCompany}) {
               <Briefcase size={14} className="text-zinc-500" />
               Posting as:{" "}
               <span className="font-semibold text-zinc-300">
-                {mockCompany.name}
+                {recruiterCompany.name}
               </span>
               <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">
                 Approved
