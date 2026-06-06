@@ -9,29 +9,31 @@ import {
   Person,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
+import Link from "next/link";
 
 export function NavigationDrawer() {
   const navItems = [
-    { icon: House, label: "Home" },
-    { icon: Magnifier, label: "Search" },
-    { icon: Bell, label: "Notifications" },
-    { icon: Envelope, label: "Messages" },
-    { icon: Person, label: "Profile" },
-    { icon: Gear, label: "Settings" },
+    { icon: House, label: "Home", href:'/dashboard/recruiter' },
+    { icon: Magnifier, label: "Search",href:'/dashboard/search' },
+    { icon: Bell, label: "Jobs",href:'/dashboard/recruiter/jobs' },
+    { icon: Envelope, label: "Company",href:'/dashboard/recruiter/company' },
+    { icon: Person, label: "Post New Jobs",href:'/dashboard/recruiter/jobs/new' },
+    { icon: Gear, label: "Settings",href:'/dashboard/recruiter' },
   ];
 
   const navigation = (
     <>
       <nav className="flex flex-col gap-1">
         {navItems.map((item) => (
-          <button
+          <Link
+            href={item.href}
             key={item.label}
             className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
             type="button"
           >
             <item.icon className="size-5 text-muted" />
             {item.label}
-          </button>
+          </Link>
         ))}
       </nav>
     </>

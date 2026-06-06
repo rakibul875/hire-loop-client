@@ -342,7 +342,7 @@ const popoverClasses =
 const listItemClasses =
   "text-zinc-300 px-3 py-2 rounded-md cursor-pointer hover:bg-zinc-900 hover:text-white outline-none data-[focused=true]:bg-zinc-900";
 
-export default function CompanyProfile({ recruiter, newCompany }) {
+export default function CompanyProfile({ recruiter, newCompany}) {
   const recruiterId = recruiter.id;
 
   // ১. ফ্রন্টএন্ড স্টেট ম্যানেজমেন্ট
@@ -415,7 +415,6 @@ export default function CompanyProfile({ recruiter, newCompany }) {
 
     // সাবমিট করার সময় লেটেস্ট আপলোড হওয়া logoUrl পাস করা হচ্ছে
     const newCompanyData = {
-      _id: "fake-id-123",
       name: companyName,
       websiteUrl: formattedWebsite,
       industry: industry || "technology",
@@ -438,7 +437,7 @@ export default function CompanyProfile({ recruiter, newCompany }) {
   console.log(company)
 
   // --- ভিউ ১: কোনো কোম্পানি রেজিস্টার্ড না থাকলে (Empty State) ---
-  if (!company && !isEditing) {
+  if (Object.keys(company).length===0 && !isEditing) {
     return (
       <div className="max-w-2xl mx-auto my-12 bg-zinc-950 border border-zinc-900 rounded-xl p-8 text-center space-y-6">
         <div className="w-16 h-16 bg-zinc-900/50 rounded-full flex items-center justify-center mx-auto border border-zinc-800">
