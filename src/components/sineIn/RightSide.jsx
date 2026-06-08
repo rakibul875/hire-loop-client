@@ -5,10 +5,13 @@ import { FaLinkedin } from 'react-icons/fa6';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
 const RightSide = () => {
     const [showPassword, setShowPassword] = useState(false);
+     const searchParams=useSearchParams()
+    const redirectTo = searchParams.get('redirect')|| '/'
+    const router=useRouter()
     const handelSignin= async(e)=>{
         e.preventDefault()
         const user=new FormData(e.currentTarget)
@@ -18,12 +21,13 @@ const RightSide = () => {
             password: userData.password
         })
         if(data){
-            alert('sign In successful')
-            redirect('/')
+            alert('sign In successful')  
+            router.push(redirectTo) 
         }else{
             alert(error.message)
         }
     }
+   
 
     return (
         <div className="w-full lg:w-1/2 bg-[#090a0c] flex flex-col items-center justify-center p-6 sm:p-12 md:p-20 min-h-screen">
@@ -119,7 +123,7 @@ const RightSide = () => {
                 </form>
 
                 <p className="text-xs text-gray-500 text-center mt-8 font-light">
-                    Don`t have an account? <Link href="/singup" className="text-gray-300 hover:text-white font-semibold transition-colors">Create Account</Link>
+                    Don`t have an account? <Link href={`/singup?redirect=${redirectTo}` }className="text-gray-300 hover:text-white font-semibold transition-colors">Create Account</Link>
                 </p>
 
             </div>

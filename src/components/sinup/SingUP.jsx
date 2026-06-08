@@ -5,11 +5,15 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FiEye, FiEyeOff, FiImage } from "react-icons/fi";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+
 
 const SingUP = () => {
   const [role, setRole] = useState("seeker");
   const [showPassword, setShowPassword] = useState(false);
+  const searchParams=useSearchParams()
+  const redirectTo=searchParams.get('redirect')||'/'
+  const router= useRouter()
 
   const handelSignUp = async (e) => {
     e.preventDefault();
@@ -27,7 +31,7 @@ const SingUP = () => {
 
     if (data) {
       alert("signUp successful");
-      redirect("/");
+      router.push(redirectTo)
     } else {
       console.error(error?.message);
     }
@@ -208,7 +212,7 @@ const SingUP = () => {
         <p className="text-xs text-gray-500 text-center mt-8 font-light">
           Already have an account?{" "}
           <Link
-            href="/signin"
+            href={`/signin?redirect=${redirectTo}`}
             className="text-gray-300 hover:text-white font-semibold transition-colors"
           >
             Sign In
