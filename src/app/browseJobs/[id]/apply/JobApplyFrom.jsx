@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Button, Card, TextField, Label, Input, TextArea } from "@heroui/react";
+import { handelApplication } from "@/lib/action/application";
 
 const JobApplyForm = ({ job, applicant }) => {
   const jobTitle = job?.title || "Position";
@@ -23,13 +24,17 @@ const JobApplyForm = ({ job, applicant }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
+    const applicationData = {
       jobId: job?._id,
+      jobTitle:job?.title,
       ...formData,
     };
-    console.log("Application Submitted for Heire Loop:", data);
+    const res= await handelApplication(applicationData)
+    if(res.insertedId){
+        alert("Application Submit SuccessFul")
+    }
   };
 
   // Shared Tailwind design tokens

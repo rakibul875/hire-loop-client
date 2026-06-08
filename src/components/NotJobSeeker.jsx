@@ -7,13 +7,11 @@ const NotJobSeeker = () => {
     return (
         <div>
             <div className="min-h-[80vh] w-full bg-[#000000] text-white flex flex-col items-center justify-center px-4 relative overflow-hidden select-none">
-      
-      {/* ব্যাকগ্রাউন্ড সূক্ষ্ম পার্পল গ্লো */}
+
       <div className="absolute w-[350px] h-[350px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
       <div className="text-center max-w-md relative z-10 flex flex-col items-center">
         
-        {/* লক বা রেস্ট্রিকশন আইকন অ্যানিমেশন */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -36,7 +34,7 @@ const NotJobSeeker = () => {
           </svg>
         </motion.div>
 
-        {/* টাইটেল এবং মেসেজ */}
+       
         <motion.h2
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,7 +53,7 @@ const NotJobSeeker = () => {
           This page is exclusively for Job Seekers. Recruiters cannot view or apply to these roles.
         </motion.p>
 
-        {/* নেভিগেশন বাটন */}
+      
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
