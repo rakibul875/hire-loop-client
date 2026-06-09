@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import JobApplyFrom from "./JobApplyFrom";
 import { getApplication } from "@/lib/action/api/getApplication";
+import PlanLimitModal from "@/components/PlanLimitModal";
 
 const ApplyPage = async ({ params }) => {
   const { id } = await params;
@@ -32,7 +33,7 @@ const ApplyPage = async ({ params }) => {
         {user?.name} You Applied so fa {application.length} of{" "}
         {plan.maxApplicationParMonth} this month{" "}
       </h1>
-      {application.length<plan.maxApplicationParMonth &&<JobApplyFrom applicant={user} job={job} />}
+      {application.length<plan.maxApplicationParMonth?<JobApplyFrom applicant={user} job={job} /> :<PlanLimitModal/> }
     </div>
   );
 };
