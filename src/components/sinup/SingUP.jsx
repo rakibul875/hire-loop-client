@@ -19,7 +19,7 @@ const SingUP = () => {
     e.preventDefault();
     const userData = new FormData(e.currentTarget);
     userData.set("role", role);
-
+    const plan=role==='seeker'? 'seeker_free': 'recruiter_free'
     const user = Object.fromEntries(userData.entries());
     const { data, error } = await authClient.signUp.email({
       name: user.name,
@@ -27,6 +27,7 @@ const SingUP = () => {
       image: user.image,
       password: user.password,
       role: user.role,
+      plan: plan
     });
 
     if (data) {

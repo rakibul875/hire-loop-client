@@ -6,14 +6,13 @@ import React from "react";
 import JobApplyFrom from "./JobApplyFrom";
 import { getApplication } from "@/lib/action/api/getApplication";
 import PlanLimitModal from "@/components/PlanLimitModal";
+import { getPlanById } from "@/lib/action/api/plans";
 
 const ApplyPage = async ({ params }) => {
   const { id } = await params;
   const user = await getUserSession();
-  const plan = {
-    name: "Free plan",
-    maxApplicationParMonth: 3,
-  };
+  const plan = await getPlanById(user?.plan || "seeker");
+  console.log(plan)
   if (!user) {
     redirect(`/signin?redirect=/browseJobs/${id}/apply`);
   }
@@ -31,9 +30,13 @@ const ApplyPage = async ({ params }) => {
     <div>
       <h1>
         {user?.name} You Applied so fa {application.length} of{" "}
-        {plan.maxApplicationParMonth} this month{" "}
+        {plan.maxApplicationPerMonth} this month{" "}
       </h1>
-      {application.length<plan.maxApplicationParMonth?<JobApplyFrom applicant={user} job={job} /> :<PlanLimitModal/> }
+      {application.length < plan.maxApplicationPerMonth ? (
+        <JobApplyFrom applicant={user} job={job} />
+      ) : (
+        <PlanLimitModal />
+      )}
     </div>
   );
 };
