@@ -29,6 +29,7 @@ const JobApplyForm = ({ job, applicant }) => {
     const applicationData = {
       jobId: job?._id,
       jobTitle:job?.title,
+      applicantId:applicant?.id,
       ...formData,
     };
     const res= await handelApplication(applicationData)
