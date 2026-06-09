@@ -11,6 +11,7 @@ const PricingPage = () => {
   const seekerPlans = [
     {
       name: "Free",
+      id:'seeker_Free',
       price: "$0",
       period: "/forever",
       description: "Perfect for getting started and exploring opportunities.",
@@ -25,6 +26,7 @@ const PricingPage = () => {
     },
     {
       name: "Pro",
+      id:'seeker_Pro',
       price: "$19",
       period: "/month",
       description: "Accelerate your job hunt with active tracking tools.",
@@ -39,6 +41,7 @@ const PricingPage = () => {
     },
     {
       name: "Premium",
+      id:'seeker_Premium',
       price: "$39",
       period: "/month",
       description: "Ultimate visibility to land your dream role faster.",
@@ -57,6 +60,7 @@ const PricingPage = () => {
   const recruiterPlans = [
     {
       name: "Free",
+      id:'recruiter_free',
       price: "$0",
       period: "/forever",
       description: "Great for a company's first year of hiring.",
@@ -70,6 +74,7 @@ const PricingPage = () => {
     },
     {
       name: "Growth",
+      id:'recruiter_growth',
       price: "$49",
       period: "/month",
       description: "Scale your recruitment with tracking and metrics.",
@@ -84,6 +89,7 @@ const PricingPage = () => {
     },
     {
       name: "Enterprise",
+      id:'recruiter_enterprise',
       price: "$149",
       period: "/month",
       description: "Power tools for structured corporate HR teams.",
@@ -224,6 +230,7 @@ const PricingPage = () => {
             {/* Pricing Button */}
             <Card.Content className="p-0 bg-transparent">
               <form action="/api/checkout_sessions" method="POST">
+              <input type="hidden" name="plan_id" value={plan.id} />
                 <section>
                   <Button
                     type="submit"
