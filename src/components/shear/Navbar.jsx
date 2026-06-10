@@ -21,6 +21,16 @@ const Navbar = () => {
     { title: "Company", path: "/company" },
     { title: "Pricing", path: "/pricing" },
   ];
+  const pathName={
+    seeker:'/dashboard/seeker',
+    recruiter:'/dashboard/recruiter'
+}
+  if(user?.email){
+    navLinks.push({
+      title: "Dashboard",
+      path: pathName[user?.role || "seeker"]
+    })
+  }
 
   return (
     <nav className="w-full bg-transparent text-white px-4 md:px-12 py-4 flex items-center justify-between sticky top-0 z-50">
