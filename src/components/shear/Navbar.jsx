@@ -28,7 +28,7 @@ const Navbar = () => {
   const rolePaths = {
     seeker: "/dashboard/seeker",
     recruiter: "/dashboard/recruiter",
-    organizer: "/dashboard/organizer",
+    admin: "/dashboard/admin",
   };
   if (user?.email) {
     navLinks.push({

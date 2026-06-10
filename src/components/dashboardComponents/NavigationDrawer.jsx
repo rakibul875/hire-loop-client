@@ -13,7 +13,7 @@ import {
   Person,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
-import { LayoutGrid } from "lucide-react";
+import { Briefcase, Building, LayoutGrid, Users } from "lucide-react";
 import Link from "next/link";
 
 export async function NavigationDrawer() {
@@ -38,10 +38,19 @@ export async function NavigationDrawer() {
     { icon: CreditCard, label: "Billing", href: "/dashboard/billing" },
     { icon: Gear, label: "Settings", href: "/dashboard/settings" },
   ];
+  const adminNavLinks=[
+  { icon: LayoutGrid, label: "Dashboard", href: '/admin/dashboard' },
+  { icon: Users, label: "Users", href: '/admin/users' },
+  { icon: Building, label: "Companies", href: '/admin/companies' },
+  { icon: Briefcase, label: "Jobs", href: '/admin/jobs' },
+  { icon: CreditCard, label: "Payments", href: '/admin/payments' },
+  { icon: Gear, label: "Settings", href: '/admin/settings' },
+]
 
   const navLinkMap={
     seeker:seekerNavLinks,
-    recruiter:recruiterNavLinks
+    recruiter:recruiterNavLinks,
+    admin:adminNavLinks
   }
 
   const navItems =navLinkMap[user?.role||'seeker'];
