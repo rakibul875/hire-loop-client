@@ -34,7 +34,7 @@ const SingUP = () => {
       alert("signUp successful");
       router.push(redirectTo)
     } else {
-      console.error(error?.message);
+      alert.error(error?.message);
     }
   };
 

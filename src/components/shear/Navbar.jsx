@@ -13,23 +13,29 @@ const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  const handelLogOut= async()=>{
+  const handelLogOut = async () => {
     await authClient.signOut();
-  }
+  };
   const navLinks = [
     { title: "Browse Jobs", path: "/browseJobs" },
     { title: "Company", path: "/company" },
     { title: "Pricing", path: "/pricing" },
   ];
-  const pathName={
-    seeker:'/dashboard/seeker',
-    recruiter:'/dashboard/recruiter'
-}
-  if(user?.email){
+  //   const pathName={
+  //     seeker:'/dashboard/seeker',
+  //     recruiter:'/dashboard/recruiter'
+  // }
+  const rolePaths = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+    organizer: "/dashboard/organizer",
+  };
+  if (user?.email) {
     navLinks.push({
       title: "Dashboard",
-      path: pathName[user?.role || "seeker"]
-    })
+      // path: pathName[user?.role || "seeker"]
+      path: rolePaths[user?.role] ?? "/dashboard",
+    });
   }
 
   return (
@@ -48,21 +54,17 @@ const Navbar = () => {
       <div className="hidden md:flex items-center ml-auto gap-6">
         <div className="flex items-center bg-[#1c1d20]/80 px-6 py-2.5 rounded-xl border border-gray-800/50 gap-8 text-sm font-medium">
           {navLinks.map((link, index) => {
+            if (!link.path) return null;
+
             const isActive = pathname === link.path;
 
             return (
               <Link
                 key={index}
                 href={link.path}
-                className={`relative py-1 transition-colors duration-200 ${
-                  isActive ? "text-white" : "text-gray-400 hover:text-white"
-                }`}
+                className={isActive ? "text-white" : "text-gray-400"}
               >
                 {link.title}
-
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-white rounded-full animate-fadeIn" />
-                )}
               </Link>
             );
           })}
@@ -73,10 +75,9 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           {user ? (
             <div className="flex items-center gap-2">
-              <LoginAvater user={user}/>
+              <LoginAvater user={user} />
               <Button onClick={handelLogOut}>LogOut</Button>
             </div>
-            
           ) : (
             <Link
               href="/signin"
@@ -117,37 +118,36 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow-lg bg-[#1c1d20] border border-gray-800 rounded-box w-52 gap-2 text-gray-300"
         >
           {navLinks.map((link, index) => {
+            if (!link.path) return null;
+
             const isActive = pathname === link.path;
+
             return (
-              <li key={index}>
-                <Link
-                  href={link.path}
-                  className={
-                    isActive ? "text-white font-semibold bg-gray-800" : ""
-                  }
-                >
-                  {link.title}
-                </Link>
-              </li>
+              <Link
+                key={index}
+                href={link.path}
+                className={isActive ? "text-white" : "text-gray-400"}
+              >
+                {link.title}
+              </Link>
             );
           })}
 
           <div className="h-[1px] bg-gray-800 my-1"></div>
           <li>
             {user ? (
-            <div className="flex items-center gap-2">
-              <LoginAvater user={user}/>
-              <Button onClick={handelLogOut}>LogOut</Button>
-            </div>
-            
-          ) : (
-            <Link
-              href="/signin"
-              className="text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors"
-            >
-              Sign In
-            </Link>
-          )}
+              <div className="flex items-center gap-2">
+                <LoginAvater user={user} />
+                <Button onClick={handelLogOut}>LogOut</Button>
+              </div>
+            ) : (
+              <Link
+                href="/signin"
+                className="text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors"
+              >
+                Sign In
+              </Link>
+            )}
           </li>
           <li className="mt-1">
             <button className="bg-white text-black font-semibold py-2 rounded-xl text-center hover:bg-gray-200 w-full">

@@ -12,13 +12,13 @@ const ApplyPage = async ({ params }) => {
   const { id } = await params;
   const user = await getUserSession();
   const plan = await getPlanById(user?.plan || "seeker_free");
-  console.log({ plan, id, user, role: user.role }, "form apply page");
+  
 
   if (!user) {
     redirect(`/signin?redirect=/browseJobs/${id}/apply`);
   }
   if (user?.role !== "seeker") {
-    console.log("not seeker");
+  
     return (
       <div className="">
         <NotJobSeeker />
@@ -27,7 +27,6 @@ const ApplyPage = async ({ params }) => {
   }
   const application = await getApplication(user?.id);
   const job = await getJobsById(id);
-  console.log({length:application.length ,planLength: plan.maxApplicationPerMonth}, "max session");
   return (
     <div>
       <h1>

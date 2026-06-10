@@ -5,11 +5,10 @@ import React from 'react';
 
 const CompanyPage = async () => {
     const session= await getUserSession();
-    // console.log(session?.id)
+  
     const sessionId=session?.id
     const company= await getRecruiterCompany(sessionId)
-    console.log(sessionId)
-    console.log(company)
+   
     return (
     //    newCompany={company}
         <div>

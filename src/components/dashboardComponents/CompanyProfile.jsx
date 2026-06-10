@@ -99,7 +99,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
       ? websiteUrl
       : `https://${websiteUrl}`;
 
-    // সাবমিট করার সময় লেটেস্ট আপলোড হওয়া logoUrl পাস করা হচ্ছে
+   
     const newCompanyData = {
       name: companyName,
       websiteUrl: formattedWebsite,
@@ -107,11 +107,11 @@ export default function CompanyProfile({ recruiter, newCompany}) {
       location,
       employeeCount: employeeCount || "1-10",
       description,
-      logo: logoUrl || (company ? company.logo : ""), // নতুন লোগো না থাকলে আগেরটা থাকবে
+      logo: logoUrl || (company ? company.logo : ""), 
       status: company ? company.status : "Pending",
       recruiterId: recruiterId,
     };
-    console.log("newcompany",newCompanyData)
+
 
     setCompany(newCompanyData);
     const payload = await createCompany(newCompanyData);
@@ -120,9 +120,8 @@ export default function CompanyProfile({ recruiter, newCompany}) {
     }
     setIsEditing(false);
   };
-  console.log(company)
 
-  // --- ভিউ ১: কোনো কোম্পানি রেজিস্টার্ড না থাকলে (Empty State) ---
+
   if (Object.keys(company).length===0 && !isEditing) {
     return (
       <div className="max-w-2xl mx-auto my-12 bg-zinc-950 border border-zinc-900 rounded-xl p-8 text-center space-y-6">
@@ -148,7 +147,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
     );
   }
 
-  // --- ভিউ ২: কোম্পানির প্রোফাইল ড্যাশবোর্ড (Presentation View) ---
+
   if (company && !isEditing) {
     const getStatusStyles = (status) => {
       switch (status) {
@@ -250,7 +249,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
     );
   }
 
-  // --- ভিউ ৩: রেজিস্ট্রেশন এবং এডিট ফর্ম (Form View) ---
+
   return (
     <div className="max-w-3xl mx-auto my-8 bg-zinc-950 p-8 border border-zinc-900 rounded-xl">
       <Form onSubmit={handleSubmit} className="space-y-6">
@@ -263,7 +262,6 @@ export default function CompanyProfile({ recruiter, newCompany}) {
           </p>
         </div>
 
-        {/* ROW 1: Company Name + Industry */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TextField
             name="companyName"
@@ -434,7 +432,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
                 <span className="text-xs text-zinc-600 mt-0.5">
                   PNG, JPG up to 5MB
                 </span>
-                {/* লোগো আপলোড এরর মেসেজ প্রদর্শনের ব্যবস্থা */}
+
                 {errors.logo && (
                   <span className="text-xs text-rose-500 mt-1 font-medium">
                     {errors.logo}
@@ -462,7 +460,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
           <FieldError className="text-xs text-rose-500 mt-1" />
         </TextField>
 
-        {/* অ্যাকশন বাটনসমূহ */}
+
         <div className="flex justify-end gap-3 pt-4 border-t border-zinc-900">
           {company && (
             <Button
