@@ -1,7 +1,11 @@
+import { getUserSession } from "@/lib/core/session";
 import {
   Bars,
   Bell,
+  Bookmark,
+  CreditCard,
   Envelope,
+  FileText,
   Gear,
   House,
   LayoutSideContentRight,
@@ -9,17 +13,38 @@ import {
   Person,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
+import { LayoutGrid } from "lucide-react";
 import Link from "next/link";
 
-export function NavigationDrawer() {
-  const navItems = [
-    { icon: House, label: "Home", href:'/dashboard/recruiter' },
-    { icon: Magnifier, label: "Search",href:'/dashboard/search' },
-    { icon: Bell, label: "Jobs",href:'/dashboard/recruiter/jobs' },
-    { icon: Envelope, label: "Company",href:'/dashboard/recruiter/company' },
-    { icon: Person, label: "Post New Jobs",href:'/dashboard/recruiter/jobs/new' },
-    { icon: Gear, label: "Settings",href:'/dashboard/recruiter' },
+export async function NavigationDrawer() {
+  const user= await getUserSession()
+  const recruiterNavLinks = [
+    { icon: House, label: "Home", href: "/dashboard/recruiter" },
+    { icon: Magnifier, label: "Search", href: "/dashboard/search" },
+    { icon: Bell, label: "Jobs", href: "/dashboard/recruiter/jobs" },
+    { icon: Envelope, label: "Company", href: "/dashboard/recruiter/company" },
+    {
+      icon: Person,
+      label: "Post New Jobs",
+      href: "/dashboard/recruiter/jobs/new",
+    },
+    { icon: Gear, label: "Settings", href: "/dashboard/recruiter" },
   ];
+  const seekerNavLinks = [
+    { icon: LayoutGrid, label: "Dashboard", href: "/dashboard" },
+    { icon: Magnifier, label: "Jobs", href: "/dashboard/jobs" },
+    { icon: Bookmark, label: "Saved Jobs", href: "/dashboard/saved-jobs" },
+    { icon: FileText, label: "Applications", href: "/dashboard/applications" },
+    { icon: CreditCard, label: "Billing", href: "/dashboard/billing" },
+    { icon: Gear, label: "Settings", href: "/dashboard/settings" },
+  ];
+
+  const navLinkMap={
+    seeker:seekerNavLinks,
+    recruiter:recruiterNavLinks
+  }
+
+  const navItems =navLinkMap[user?.role||'seeker'];
 
   const navigation = (
     <>
@@ -46,8 +71,8 @@ export function NavigationDrawer() {
       </aside>
       <div className="lg:hidden">
         <Drawer>
-          <Button variant="secondary" className='rounded-md'>
-            <LayoutSideContentRight/>
+          <Button variant="secondary" className="rounded-md">
+            <LayoutSideContentRight />
             Sidebar
           </Button>
           <Drawer.Backdrop>
@@ -57,9 +82,7 @@ export function NavigationDrawer() {
                 <Drawer.Header>
                   <Drawer.Heading>Navigation</Drawer.Heading>
                 </Drawer.Header>
-                <Drawer.Body>
-                  {navigation}
-                </Drawer.Body>
+                <Drawer.Body>{navigation}</Drawer.Body>
               </Drawer.Dialog>
             </Drawer.Content>
           </Drawer.Backdrop>
