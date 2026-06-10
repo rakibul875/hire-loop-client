@@ -31,10 +31,10 @@ export async function NavigationDrawer() {
     { icon: Gear, label: "Settings", href: "/dashboard/recruiter" },
   ];
   const seekerNavLinks = [
-    { icon: LayoutGrid, label: "Dashboard", href: "/dashboard" },
-    { icon: Magnifier, label: "Jobs", href: "/dashboard/jobs" },
-    { icon: Bookmark, label: "Saved Jobs", href: "/dashboard/saved-jobs" },
-    { icon: FileText, label: "Applications", href: "/dashboard/applications" },
+    { icon: LayoutGrid, label: "Dashboard", href: "/dashboard/seeker" },
+    { icon: Magnifier, label: "Jobs", href: "/dashboard/seeker/jobs" },
+    { icon: Bookmark, label: "Saved Jobs", href: "/dashboard/seeker/saved-jobs" },
+    { icon: FileText, label: "Applications", href: "/dashboard/seeker/applications" },
     { icon: CreditCard, label: "Billing", href: "/dashboard/billing" },
     { icon: Gear, label: "Settings", href: "/dashboard/settings" },
   ];
