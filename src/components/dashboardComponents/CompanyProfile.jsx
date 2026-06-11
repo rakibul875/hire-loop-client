@@ -22,7 +22,7 @@ import {
 } from "@gravity-ui/icons";
 import { createCompany } from "@/lib/action/company";
 
-// ড্রপডাউন পপওভার এবং লিস্ট আইটেমের জন্য স্টাইল
+
 const popoverClasses =
   "bg-zinc-950 border border-zinc-800 rounded-lg p-1 shadow-xl min-w-[200px]";
 const listItemClasses =
@@ -31,21 +31,20 @@ const listItemClasses =
 export default function CompanyProfile({ recruiter, newCompany}) {
   const recruiterId = recruiter.id;
 
-  // ১. ফ্রন্টএন্ড স্টেট ম্যানেজমেন্ট
+
   const [company, setCompany] = useState(newCompany);
   const [isEditing, setIsEditing] = useState(false);
   const [logoUrl, setLogoUrl] = useState("");
 
-  // আপলোডিং এবং এরর হ্যান্ডেল করার নতুন স্টেট
+
   const [isUploading, setIsUploading] = useState(false);
   const [errors, setErrors] = useState({ logo: null });
 
-  // ২. লোগো প্রিভিউ ও ImgBB আপলোড হ্যান্ডলার
+
   const handleLogoUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Simple Validation
     if (file.size > 5 * 1024 * 1024) {
       setErrors((prev) => ({ ...prev, logo: "File size exceeds 5MB limit" }));
       return;
@@ -56,7 +55,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
     formData.append("image", file);
 
     try {
-      // Real IMGBB API key environmental variable injection
+
       const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_API;
       const response = await fetch(
         `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
@@ -83,7 +82,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
     }
   };
 
-  // ৩. ফর্ম সাবমিট হ্যান্ডলার
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -99,6 +98,9 @@ export default function CompanyProfile({ recruiter, newCompany}) {
       ? websiteUrl
       : `https://${websiteUrl}`;
 
+      const isCompanyExist = company && Object.keys(company).length > 0;
+      console.log(isCompanyExist)
+
    
     const newCompanyData = {
       name: companyName,
@@ -108,7 +110,8 @@ export default function CompanyProfile({ recruiter, newCompany}) {
       employeeCount: employeeCount || "1-10",
       description,
       logo: logoUrl || (company ? company.logo : ""), 
-      status: company ? company.status : "Pending",
+      status: isCompanyExist ? company.status : "Pending",
+      // status: company ? company.status : "Pending",
       recruiterId: recruiterId,
     };
 
