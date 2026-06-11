@@ -1,9 +1,9 @@
 'use server'
 
-export const handelPost= async(path,newData)=>{
+export const handelPost= async(path,newData,method='POST')=>{
 
     const res= await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${path}`,{
-        method:'POST',
+        method:method,
         headers:{
             'Content-type':'application/json',
         },
