@@ -98,8 +98,7 @@ export default function CompanyProfile({ recruiter, newCompany}) {
       ? websiteUrl
       : `https://${websiteUrl}`;
 
-      const isCompanyExist = company && Object.keys(company).length > 0;
-      console.log(isCompanyExist)
+      
 
    
     const newCompanyData = {
@@ -110,8 +109,8 @@ export default function CompanyProfile({ recruiter, newCompany}) {
       employeeCount: employeeCount || "1-10",
       description,
       logo: logoUrl || (company ? company.logo : ""), 
-      status: isCompanyExist ? company.status : "Pending",
-      // status: company ? company.status : "Pending",
+      
+      status: company && company.status ? company.status : "Pending",
       recruiterId: recruiterId,
     };
 

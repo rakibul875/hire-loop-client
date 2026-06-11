@@ -39,12 +39,12 @@ export async function NavigationDrawer() {
     { icon: Gear, label: "Settings", href: "/dashboard/settings" },
   ];
   const adminNavLinks=[
-  { icon: LayoutGrid, label: "Dashboard", href: '/admin/dashboard' },
-  { icon: Users, label: "Users", href: '/admin/users' },
-  { icon: Building, label: "Companies", href: '/admin/companies' },
-  { icon: Briefcase, label: "Jobs", href: '/admin/jobs' },
-  { icon: CreditCard, label: "Payments", href: '/admin/payments' },
-  { icon: Gear, label: "Settings", href: '/admin/settings' },
+  { icon: LayoutGrid, label: "Dashboard", href: '/dashboard/admin/dashboard' },
+  { icon: Users, label: "Users", href: '/dashboard/admin/users' },
+  { icon: Building, label: "Companies", href: '/dashboard/admin/companies' },
+  { icon: Briefcase, label: "Jobs", href: '/dashboard/admin/jobs' },
+  { icon: CreditCard, label: "Payments", href: '/dashboard/admin/payments' },
+  { icon: Gear, label: "Settings", href: '/dashboard/admin/settings' },
 ]
 
   const navLinkMap={
