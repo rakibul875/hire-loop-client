@@ -9,6 +9,10 @@ export const getLoggedInRecruiterCompany = async () => {
   return getRecruiterCompany(user?.id);
 };
 
+export const getAllCompanies = async () => {
+  return handelGetSection('/company')
+}
+
 export const getJobsData = async () => {
    return await handelGetSection('/jobs')
 };
