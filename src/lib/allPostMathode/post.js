@@ -10,6 +10,13 @@ export const authHeader = async () => {
   return headers;
 };
 
+export const protectFetch= async(path)=>{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${path}`,{
+    headers: await authHeader(),
+  })
+  return res.json() 
+}
+
 export const handelPost = async (path, newData, method = "POST") => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${path}`, {
     method: method,

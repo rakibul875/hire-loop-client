@@ -1,3 +1,4 @@
+import { protectFetch } from "@/lib/allPostMathode/post";
 import { handelGetSection } from "@/lib/core/allgetsection/getSection";
 import { getUserSession } from "@/lib/core/session";
 
@@ -10,7 +11,7 @@ export const getLoggedInRecruiterCompany = async () => {
 };
 
 export const getAllCompanies = async () => {
-  return handelGetSection('/company')
+  return protectFetch('/company')
 }
 
 export const getJobsData = async () => {
