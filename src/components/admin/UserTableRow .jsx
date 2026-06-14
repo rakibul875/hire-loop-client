@@ -1,10 +1,10 @@
 // app/admin/users/_components/UserTableRow.js
 "use client";
 
+import { updateUser } from "@/lib/updateUser";
 import React from "react";
 
 const UserTableRow = ({ user }) => {
-  // ডাটাবেজের createdAt ডেট ফরম্যাট করার জন্য (যেমন: "Jun 09, 2026")
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -15,8 +15,9 @@ const UserTableRow = ({ user }) => {
   };
 
 
-  const handleRoleToggle = (id, currentRole) => {
-    console.log(`Toggle role for ${id}. Current: ${currentRole}`);
+  const handleRoleToggle = async(userId, role) => {
+    const data= await updateUser(userId, role)
+    console.log(`Toggle role for ${userId}. Current: ${role}`);
   };
 
   const handleStatusToggle = (id, currentStatus) => {
@@ -81,7 +82,7 @@ const UserTableRow = ({ user }) => {
         {userStatus === "Suspended" ? (
           <>
             <button
-              onClick={() => handleStatusToggle(user._id, userStatus)}
+              onClick={() => handleStatusToggle(user.id, userStatus)}
               className="text-emerald-400 hover:underline"
             >
               Activate
@@ -93,7 +94,7 @@ const UserTableRow = ({ user }) => {
         ) : (
           <>
             <button
-              onClick={() => handleRoleToggle(user?._id, user?.role)}
+              onClick={() => handleRoleToggle(user.id, user.role === "seeker" ? "recruiter" : "seeker")}
               className="text-zinc-400 hover:text-white"
             >
               Make {user.role === "seeker" ? "Recruiter" : "Seeker"}
