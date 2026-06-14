@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { getUserToken } from "../core/session";
 
 export const authHeader = async () => {
@@ -26,5 +27,15 @@ export const handelPost = async (path, newData, method = "POST") => {
     },
     body: JSON.stringify(newData),
   });
-  return res.json();
+  return handelStatus(res);
 };
+
+const handelStatus=res=>{
+  if(res.status===401){
+    redirect('/unauthorize')
+  }
+  if(res.status===403){
+    redirect('/forbidden')
+  }
+  return res.json()
+}
