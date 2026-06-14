@@ -3,7 +3,7 @@ import { handelGetSection } from "@/lib/core/allgetsection/getSection";
 import { getUserSession } from "@/lib/core/session";
 
 export const getRecruiterCompany = async (recruiterId) => {
-  return handelGetSection(`/my/company?recruiterId=${recruiterId}`);
+  return protectFetch(`/my/company?recruiterId=${recruiterId}`);
 };
 export const getLoggedInRecruiterCompany = async () => {
   const user = await getUserSession();
@@ -15,9 +15,9 @@ export const getAllCompanies = async () => {
 }
 
 export const getJobsData = async () => {
-   return await handelGetSection('/jobs')
+   return await protectFetch('/jobs')
 };
 
 export const getJobsById=async(id)=>{
- return await handelGetSection(`/jobs/${id}`)
+ return await protectFetch(`/jobs/${id}`)
 }
